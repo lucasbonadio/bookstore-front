@@ -7,12 +7,12 @@ interface BookCardProps {
 export const BookCard = ({ book }: BookCardProps) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
-      <div className="h-64 overflow-hidden bg-gray-200 flex items-center justify-center relative">
+      <div className="h-64 overflow-hidden bg-gray-200 flex items-center justify-center relative py-4">
         {book.coverImage ? (
           <img 
             src={`data:image/jpeg;base64,${book.coverImage}`} 
             alt={book.title} 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         ) : (
           <span className="text-gray-400">Sem Capa</span>
