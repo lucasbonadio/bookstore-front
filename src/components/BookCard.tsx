@@ -30,7 +30,7 @@ export const BookCard = ({ book }: BookCardProps) => {
         <p className="text-sm text-gray-600 font-semibold mb-2">
           {book.author}
         </p>
-        <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
+        <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow overflow-ellipsis break-words">
           {book.description || "Sem descrição."}
         </p>
       </div>
