@@ -19,7 +19,12 @@ interface ValidationErrors {
   coverImage?: string;
 }
 
-export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookFormProps) => {
+export const useBookForm = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  bookToEdit,
+}: UseBookFormProps) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publicationDate, setPublicationDate] = useState("");
@@ -38,8 +43,16 @@ export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookF
         setTitle(bookToEdit.title);
         setAuthor(bookToEdit.author);
         setDescription(bookToEdit.description || "");
-        setPublicationDate(bookToEdit.publicationDate ? new Date(bookToEdit.publicationDate).toISOString().split("T")[0] : "");
-        setPreview(bookToEdit.coverImage ? `data:image/jpeg;base64,${bookToEdit.coverImage}` : null);
+        setPublicationDate(
+          bookToEdit.publicationDate
+            ? new Date(bookToEdit.publicationDate).toISOString().split("T")[0]
+            : ""
+        );
+        setPreview(
+          bookToEdit.coverImage
+            ? `data:image/jpeg;base64,${bookToEdit.coverImage}`
+            : null
+        );
       } else {
         resetForm();
       }
@@ -60,8 +73,10 @@ export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookF
     if (!title.trim()) newErrors.title = "O título é obrigatório.";
     if (!author.trim()) newErrors.author = "O autor é obrigatório.";
     if (!publicationDate) newErrors.publicationDate = "A data é obrigatória.";
-    if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
-    if (!isEditMode && !imageFile) newErrors.coverImage = "A capa é obrigatória.";
+    if (!description.trim())
+      newErrors.description = "A descrição é obrigatória.";
+    if (!isEditMode && !imageFile)
+      newErrors.coverImage = "A capa é obrigatória.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -72,7 +87,7 @@ export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookF
     if (field === "author") setAuthor(value);
     if (field === "publicationDate") setPublicationDate(value);
     if (field === "description") setDescription(value);
-    
+
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
@@ -81,7 +96,8 @@ export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookF
       const file = e.target.files[0];
       setImageFile(file);
       setPreview(URL.createObjectURL(file));
-      if (errors.coverImage) setErrors((prev) => ({ ...prev, coverImage: undefined }));
+      if (errors.coverImage)
+        setErrors((prev) => ({ ...prev, coverImage: undefined }));
     }
   };
 
@@ -118,7 +134,16 @@ export const useBookForm = ({ isOpen, onClose, onSuccess, bookToEdit }: UseBookF
   };
 
   return {
-    title, author, publicationDate, description, preview, loading, errors, isEditMode,
-    handleChange, handleImageChange, handleSubmit
+    title,
+    author,
+    publicationDate,
+    description,
+    preview,
+    loading,
+    errors,
+    isEditMode,
+    handleChange,
+    handleImageChange,
+    handleSubmit,
   };
 };
