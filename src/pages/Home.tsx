@@ -3,6 +3,7 @@ import { useBooks } from "../hooks/useBooks";
 import { BookCard } from "../components/BookCard";
 import { SearchBar } from "../components/SearchBar";
 import { CreateBookModal } from "../components/CreateBookModal";
+import { NewButton } from "../components/NewButton";
 
 export const Home = () => {
   const { books, loading, error, refetch } = useBooks();
@@ -24,15 +25,7 @@ export const Home = () => {
           refetch();
         }}
       />
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Livros</h1>
-        <button
-          className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Novo
-        </button>
-      </div>
+      <NewButton setIsModalOpen={setIsModalOpen}/>      
 
       <SearchBar value={searchTerm} onChange={setSearchTerm} />
 
