@@ -16,6 +16,7 @@ export const CreateBookModal = ({
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [publicationDate, setPublicationDate] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,11 @@ export const CreateBookModal = ({
       formData.append("title", title);
       formData.append("author", author);
       formData.append("description", description);
+
+      if (publicationDate) {
+        formData.append("publicationDate", publicationDate);
+      }
+
       if (imageFile) {
         formData.append("coverImage", imageFile);
       }
@@ -48,6 +54,7 @@ export const CreateBookModal = ({
       setTitle("");
       setAuthor("");
       setDescription("");
+      setPublicationDate("");
       setImageFile(null);
       setPreview(null);
       onSuccess();
@@ -92,6 +99,18 @@ export const CreateBookModal = ({
                 onChange={(e) => setAuthor(e.target.value)}
                 required
               />
+              <div className="relative">
+                <label className="block text-xs text-gray-500 mb-1 ml-1">
+                  Data de Publicação
+                </label>
+                <input
+                  type="date"
+                  className="w-full p-3 rounded-lg border-none shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-gray-700"
+                  value={publicationDate}
+                  onChange={(e) => setPublicationDate(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
             <div className="md:col-span-1">
