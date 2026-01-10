@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# 📚 Gerenciador de Livros (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web moderna para gerenciamento de biblioteca pessoal, permitindo visualizar, criar, editar e excluir livros. Desenvolvido com foco em performance, responsividade e boas práticas de arquitetura.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
-## React Compiler
+- **[React](https://reactjs.org/)** (com **[Vite](https://vitejs.dev/)**)
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Tailwind CSS](https://tailwindcss.com/)** (Estilização)
+- **[Axios](https://axios-http.com/)** (Consumo de API)
+- **[React Router DOM](https://reactrouter.com/)** (Roteamento)
+- **[React Toastify](https://fkhadra.github.io/react-toastify/)** (Notificações)
+- **[Vitest](https://vitest.dev/)** & **[Testing Library](https://testing-library.com/)** (Testes Unitários)
+- **[Docker](https://www.docker.com/)** (Containerização)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Pré-requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [Node.js](https://nodejs.org/en/) (v18 ou superior recomendado)
+- [Docker](https://www.docker.com/) & Docker Compose (Opcional, para rodar via container)
+- **Backend API**: Este frontend precisa da API BookStoreApi rodando para funcionar. Certifique-se de a sua API C#/.NET está ativa.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🐳 Rodando com Docker (Recomendado)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A maneira mais simples de rodar o projeto, simulando um ambiente de produção com Nginx.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1.  **Clone o repositório e entre na pasta:**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    ```bash
+    git clone [https://github.com/seu-usuario/seu-projeto.git](https://github.com/seu-usuario/seu-projeto.git)
+    cd seu-projeto
+    ```
+
+2.  **Suba o container:**
+
+    ```bash
+    docker-compose up -d --build
+    ```
+
+3.  **Acesse a aplicação:**
+    Abra seu navegador em: `http://localhost:3000`
+
+---
+
+## 💻 Rodando Localmente (Desenvolvimento)
+
+Para rodar em modo de desenvolvimento (com Hot Reload).
+
+1.  **Instale as dependências:**
+
+    ```bash
+    npm install
+    ```
+
+2.  **Inicie o servidor de desenvolvimento:**
+
+    ```bash
+    npm run dev
+    ```
+
+3.  **Acesse a aplicação:**
+    Geralmente rodará em `http://localhost:5173` (verifique o terminal).
+
+---
+
+## 🧪 Rodando Testes
+
+O projeto utiliza **Vitest** para testes unitários.
+
+- **Rodar testes uma vez:**
+
+  ```bash
+  npm run test
+  ```
+
+- **Rodar testes em modo watch (observação):**
+  ```bash
+  npm run test:watch
+  ```
+
+---
+
+## ✨ Funcionalidades Principais
+
+* **Listagem de Livros:** Visualização em grid com cards responsivos.
+* **Busca:** Filtro em tempo real por título ou autor.
+* **Cadastro (CRUD):**
+    * Criação de novos livros com upload de capa.
+    * Edição de informações existentes.
+    * Exclusão de livros.
+* **Validação:** Formulários com validação de campos obrigatórios.
+* **Feedback:** Notificações toast para sucesso ou erro nas operações.
+* **Responsividade:** Layout adaptável para Mobile, Tablet e Desktop.

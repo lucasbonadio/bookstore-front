@@ -10,7 +10,7 @@ export const BookCard = ({ book }: BookCardProps) => {
 
   return (
     <div
-      className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full cursor-pointer"
+      className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full cursor-pointer group border border-gray-100"
       onClick={() => navigate(`/livro/${book.id}`)}
     >
       <div className="h-64 overflow-hidden bg-gray-200 flex items-center justify-center relative py-4">
@@ -18,7 +18,7 @@ export const BookCard = ({ book }: BookCardProps) => {
           <img
             src={`data:image/jpeg;base64,${book.coverImage}`}
             alt={book.title}
-            className="w-full h-full object-contain"
+            className="h-full aspect-[2/3] object-cover rounded-md shadow-md transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
           <span className="text-gray-400">Sem Capa</span>
@@ -26,7 +26,9 @@ export const BookCard = ({ book }: BookCardProps) => {
       </div>
 
       <div className="p-6 flex flex-col flex-grow">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">{book.title}</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          {book.title}
+        </h2>
         <p className="text-sm text-gray-600 font-semibold mb-2">
           {book.author}
         </p>
