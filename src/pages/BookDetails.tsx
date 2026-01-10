@@ -111,11 +111,11 @@ export const BookDetails = () => {
 
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           <div className="w-full order-2 lg:order-1 lg:col-span-8">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6 tracking-tight leading-tight">
               {book.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-8 text-base md:text-lg">
+            <div className="flex flex-wrap items-center justify-between gap-4 text-gray-600 mb-8 text-base md:text-lg">
               <span className="flex items-center gap-2 bg-white py-1 rounded-full border border-gray-200 shadow-sm">
                 👤 <strong className="text-gray-900">{book.author}</strong>
               </span>
@@ -127,7 +127,7 @@ export const BookDetails = () => {
               )}
             </div>
 
-            <div className="text-gray-700 text-lg leading-relaxed text-justify whitespace-pre-wrap break-words">
+            <div className="text-gray-700 text-base font-normal leading-relaxed text-justify whitespace-pre-wrap break-words">
               {book.description || "Sem descrição disponível."}
             </div>
           </div>

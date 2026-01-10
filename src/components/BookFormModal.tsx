@@ -10,8 +10,17 @@ interface BookFormModalProps {
 
 export const BookFormModal = (props: BookFormModalProps) => {
   const {
-    title, author, publicationDate, description, preview, loading, errors, isEditMode,
-    handleChange, handleImageChange, handleSubmit
+    title,
+    author,
+    publicationDate,
+    description,
+    preview,
+    loading,
+    errors,
+    isEditMode,
+    handleChange,
+    handleImageChange,
+    handleSubmit,
   } = useBookForm(props);
 
   if (!props.isOpen) return null;
@@ -32,65 +41,105 @@ export const BookFormModal = (props: BookFormModalProps) => {
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6">
             <div className="md:col-span-2 space-y-4 md:space-y-5">
-              
               <div>
                 <input
                   type="text"
                   placeholder="Nome do livro"
                   className={`w-full p-3 md:p-4 rounded-xl shadow-sm text-gray-800 focus:ring-2 outline-none transition-all ${
-                    errors.title ? "border-2 border-red-500 focus:ring-red-200" : "border-none focus:ring-blue-500"
+                    errors.title
+                      ? "border-2 border-red-500 focus:ring-red-200"
+                      : "border-none focus:ring-blue-500"
                   }`}
                   value={title}
                   onChange={(e) => handleChange("title", e.target.value)}
                 />
-                {errors.title && <span className="text-red-500 text-sm mt-1 ml-1 block">{errors.title}</span>}
+                {errors.title && (
+                  <span className="text-red-500 text-sm mt-1 ml-1 block">
+                    {errors.title}
+                  </span>
+                )}
               </div>
-
 
               <div>
                 <input
                   type="text"
                   placeholder="Autor"
                   className={`w-full p-3 md:p-4 rounded-xl shadow-sm text-gray-800 focus:ring-2 outline-none transition-all ${
-                    errors.author ? "border-2 border-red-500 focus:ring-red-200" : "border-none focus:ring-blue-500"
+                    errors.author
+                      ? "border-2 border-red-500 focus:ring-red-200"
+                      : "border-none focus:ring-blue-500"
                   }`}
                   value={author}
                   onChange={(e) => handleChange("author", e.target.value)}
                 />
-                {errors.author && <span className="text-red-500 text-sm mt-1 ml-1 block">{errors.author}</span>}
+                {errors.author && (
+                  <span className="text-red-500 text-sm mt-1 ml-1 block">
+                    {errors.author}
+                  </span>
+                )}
               </div>
 
               <div className="relative">
                 <input
-                  type="date"
+                  type={publicationDate ? "date" : "text"}
+                  onFocus={(e) => (e.target.type = "date")}
+                  onBlur={(e) => {
+                    if (!e.target.value) e.target.type = "text";
+                  }}
+                  placeholder="Data de publicação"
                   className={`w-full p-3 md:p-4 rounded-xl shadow-sm text-gray-800 focus:ring-2 outline-none transition-all ${
-                    errors.publicationDate ? "border-2 border-red-500 focus:ring-red-200" : "border-none focus:ring-blue-500"
+                    errors.publicationDate
+                      ? "border-2 border-red-500 focus:ring-red-200"
+                      : "border-none focus:ring-blue-500"
                   }`}
                   value={publicationDate}
-                  onChange={(e) => handleChange("publicationDate", e.target.value)}
+                  onChange={(e) =>
+                    handleChange("publicationDate", e.target.value)
+                  }
                 />
-                {errors.publicationDate && <span className="text-red-500 text-sm mt-1 ml-1 block">{errors.publicationDate}</span>}
+                {errors.publicationDate && (
+                  <span className="text-red-500 text-sm mt-1 ml-1 block">
+                    {errors.publicationDate}
+                  </span>
+                )}
               </div>
             </div>
 
             <div className="md:col-span-1 h-auto flex flex-col">
-              <label className={`flex flex-col items-center justify-center w-full h-64 md:h-full min-h-[200px] bg-gray-300 rounded-xl cursor-pointer hover:opacity-90 transition-all overflow-hidden relative shadow-inner ${errors.coverImage ? "border-2 border-red-500" : ""}`}>
+              <label
+                className={`flex flex-col items-center justify-center w-full h-64 md:h-full min-h-[200px] bg-gray-300 rounded-xl cursor-pointer hover:opacity-90 transition-all overflow-hidden relative shadow-inner ${
+                  errors.coverImage ? "border-2 border-red-500" : ""
+                }`}
+              >
                 {preview ? (
-                  <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   <div className="text-center text-gray-500 p-4">
                     <span className="block font-medium">Sem Capa</span>
                     <span className="text-sm">Clique para adicionar</span>
                   </div>
                 )}
-                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center group">
                   <span className="text-white opacity-0 group-hover:opacity-100 font-bold bg-black/50 px-3 py-1 rounded-full text-sm">
                     {isEditMode ? "Alterar Capa" : "Adicionar Capa"}
                   </span>
                 </div>
               </label>
-              {errors.coverImage && <span className="text-red-500 text-sm mt-1 text-center block">{errors.coverImage}</span>}
+              {errors.coverImage && (
+                <span className="text-red-500 text-sm mt-1 text-center block">
+                  {errors.coverImage}
+                </span>
+              )}
             </div>
           </div>
 
@@ -99,12 +148,18 @@ export const BookFormModal = (props: BookFormModalProps) => {
               placeholder="Descrição/Sinopse"
               rows={6}
               className={`w-full p-3 md:p-4 rounded-xl shadow-sm text-gray-800 focus:ring-2 outline-none resize-none text-justify leading-relaxed transition-all ${
-                errors.description ? "border-2 border-red-500 focus:ring-red-200" : "border-none focus:ring-blue-500"
+                errors.description
+                  ? "border-2 border-red-500 focus:ring-red-200"
+                  : "border-none focus:ring-blue-500"
               }`}
               value={description}
               onChange={(e) => handleChange("description", e.target.value)}
             />
-            {errors.description && <span className="text-red-500 text-sm mt-1 ml-1 block">{errors.description}</span>}
+            {errors.description && (
+              <span className="text-red-500 text-sm mt-1 ml-1 block">
+                {errors.description}
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
