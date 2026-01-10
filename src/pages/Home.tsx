@@ -4,6 +4,8 @@ import { BookCard } from "../components/BookCard";
 import { SearchBar } from "../components/SearchBar";
 import { CreateBookModal } from "../components/CreateBookModal";
 import { NewButton } from "../components/NewButton";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 export const Home = () => {
   const { books, loading, error, refetch } = useBooks();
@@ -29,22 +31,9 @@ export const Home = () => {
 
       <SearchBar value={searchTerm} onChange={setSearchTerm} />
 
-      {loading && (
-        <div className="text-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-500">Carregando sua biblioteca...</p>
-        </div>
-      )}
+      {loading && <LoadingSpinner />}
 
-      {!loading && error && (
-        <div
-          className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-center"
-          role="alert"
-        >
-          <strong className="font-bold">Ops! </strong>
-          <span className="block sm:inline">{error}</span>
-        </div>
-      )}
+      {!loading && error && <ErrorMessage message={error} />}
 
       {!loading && !error && filteredBooks.length === 0 && (
         <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100 mt-6">

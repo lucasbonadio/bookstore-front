@@ -1,60 +1,47 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useBook } from "../hooks/useBook";
 import { deleteBook } from "../services/api";
+import { useState } from "react";
+import { DeleteBookModal } from "../components/DeleteBookModal";
+import { toast } from "react-toastify";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 export const BookDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const { book, loading, error } = useBook(Number(id));
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleDelete = async () => {
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
     if (!book) return;
 
-    if (window.confirm("Tem certeza que deseja excluir este livro?")) {
-      try {
-        const message = await deleteBook(book.id);
-        alert(message);
-        navigate("/");
-      } catch (err) {
-        console.log(err)
-        alert("Erro ao excluir livro.");
-      }
+    try {
+      const message = await deleteBook(book.id);
+      setIsDeleteModalOpen(false);
+      toast.success(message);
+      navigate("/");
+    } catch {
+      setIsDeleteModalOpen(false);
+      toast.error("Erro ao excluir livro.");
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-500">Carregando detalhes...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen p-8 bg-gray-50 flex justify-center items-start">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative max-w-lg w-full text-center">
-          <strong className="font-bold">Ops! </strong>
-          <span>{error}</span>
-          <button
-            onClick={() => navigate("/")}
-            className="block mx-auto mt-4 text-sm underline"
-          >
-            Voltar para o início
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage message={error} />;
   if (!book) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-12 font-sans text-gray-800">
+      <DeleteBookModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+      />
       <div className="max-w-6xl mx-auto">
         <header className="flex justify-between items-center mb-10">
           <button
@@ -84,7 +71,7 @@ export const BookDetails = () => {
               Editar
             </button>
             <button
-              onClick={handleDelete}
+              onClick={handleOpenDeleteModal}
               className="text-red-600 hover:text-red-800 transition-colors"
             >
               Excluir
