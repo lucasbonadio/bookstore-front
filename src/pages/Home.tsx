@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useBooks } from "../hooks/useBooks";
 import { BookCard } from "../components/BookCard";
 import { SearchBar } from "../components/SearchBar";
-import { CreateBookModal } from "../components/CreateBookModal";
 import { NewButton } from "../components/NewButton";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ErrorMessage } from "../components/ErrorMessage";
+import { BookFormModal } from "../components/BookFormModal";
 
 export const Home = () => {
   const { books, loading, error, refetch } = useBooks();
@@ -20,12 +20,10 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen p-8 max-w-7xl mx-auto">
-      <CreateBookModal
+      <BookFormModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={() => {
-          refetch();
-        }}
+        onSuccess={() => refetch()}
       />
       <NewButton setIsModalOpen={setIsModalOpen}/>      
 
