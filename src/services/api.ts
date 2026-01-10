@@ -24,6 +24,15 @@ export const createBook = async (formData: FormData): Promise<Book> => {
   return response.data;
 };
 
+export const updateBook = async (id: number, data: FormData): Promise<Book> => {
+  const response = await api.put<Book>(`/books/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
+
 export const deleteBook = async (id: number): Promise<string> => {
   const response = await api.delete<{ message: string }>(`/books/${id}`);
   return response.data.message;
