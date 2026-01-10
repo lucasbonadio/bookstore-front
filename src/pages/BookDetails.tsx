@@ -120,7 +120,7 @@ export const BookDetails = () => {
                 👤 <strong className="text-gray-900">{book.author}</strong>
               </span>
               {book.publicationDate && (
-                <span className="flex items-center gap-2 bg-white px-3 py-1 rounded-full border border-gray-200 shadow-sm font-bold">
+                <span className="flex items-center gap-2 bg-white py-1 rounded-full border border-gray-200 shadow-sm font-bold">
                   📅 Publicado em{" "}
                   {new Date(book.publicationDate).toLocaleDateString("pt-BR")}
                 </span>
