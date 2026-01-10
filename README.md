@@ -34,7 +34,7 @@ A maneira mais simples de rodar o projeto, simulando um ambiente de produção c
 1.  **Clone o repositório e entre na pasta:**
 
     ```bash
-    git clone [https://github.com/seu-usuario/seu-projeto.git](https://github.com/seu-usuario/seu-projeto.git)
+    git clone [https://github.com/lucasbonadio/bookstore-front.git](https://github.com/lucasbonadio/bookstore-front.git)
     cd seu-projeto
     ```
 
